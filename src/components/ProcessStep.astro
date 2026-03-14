@@ -1,0 +1,28 @@
+---
+// ProcessStep.astro — Numbered step for the "My Process" section
+export interface Props {
+  number: number;
+  title: string;
+  description: string;
+}
+
+const { number, title, description } = Astro.props;
+const paddedNum = String(number).padStart(2, '0');
+---
+
+<div class="process-step flex flex-col gap-3" style="position:relative;">
+  <!-- Large decorative numeral -->
+  <span style="font-family:'Playfair Display',serif; font-size:4.5rem; font-weight:700; line-height:1; color:var(--color-tomato-jam-100); display:block; margin-bottom:0.25rem; user-select:none;" aria-hidden="true">
+    {paddedNum}
+  </span>
+
+  <!-- Step heading -->
+  <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--color-text-primary);">
+    {title}
+  </h3>
+
+  <!-- Step description -->
+  <p style="font-size:0.9375rem; color:var(--color-text-muted); line-height:1.7;">
+    {description}
+  </p>
+</div>

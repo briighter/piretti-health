@@ -1,0 +1,30 @@
+---
+// Button.astro — Reusable CTA button
+export interface Props {
+  href: string;
+  variant?: 'primary' | 'ghost' | 'ghost-light';
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  external = false,
+  class: className = '',
+} = Astro.props;
+
+const variantClass = {
+  primary: 'btn-primary',
+  ghost: 'btn-ghost',
+  'ghost-light': 'btn-ghost-light',
+}[variant];
+---
+
+<a
+  href={href}
+  class={`btn ${variantClass} ${className}`}
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  <slot />
+</a>

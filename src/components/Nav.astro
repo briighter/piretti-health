@@ -1,0 +1,141 @@
+---
+// Nav.astro — Sticky site header with mobile hamburger menu
+const PORTAL_URL = 'https://subdomain.practicebetter.io';
+---
+
+<header id="site-header" class="sticky top-0 z-50 w-full bg-pearl-beige-50/95 backdrop-blur-sm border-b border-coffee-bean-200" style="background-color: var(--color-bg);">
+  <div class="container" style="max-width: 1100px; margin-inline: auto; padding-inline: 1.5rem;">
+    <nav class="flex items-center justify-between h-16 gap-4">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 flex-shrink-0 group" aria-label="Piretti Health home">
+        <!-- Stylized "P" mark -->
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="36" height="36" rx="4" fill="var(--color-tomato-jam-500)"/>
+          <text x="50%" y="72%" dominant-baseline="middle" text-anchor="middle"
+                font-family="'Playfair Display', Georgia, serif"
+                font-size="22" font-weight="700" fill="#fff">P</text>
+        </svg>
+        <span class="font-display text-xl font-bold tracking-tight" style="font-family: 'Playfair Display', serif; color: var(--color-text-primary);">
+          Piretti Health
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="hidden md:flex items-center gap-7 list-none" role="list">
+        {[
+          { href: '#intro',      label: 'Home'      },
+          { href: '#difference', label: 'Why Us'    },
+          { href: '#offerings',  label: 'Offerings' },
+          { href: '#about',      label: 'About'     },
+          { href: '#process',    label: 'Process'   },
+          { href: '/blog',       label: 'Blog'      },
+        ].map(link => (
+          <li>
+            <a
+              href={link.href}
+              class="text-sm font-medium transition-colors duration-150"
+              style="color: var(--color-text-muted); font-family: 'DM Sans', sans-serif;"
+              onmouseover="this.style.color='var(--color-accent)'"
+              onmouseout="this.style.color='var(--color-text-muted)'"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Desktop CTA -->
+      <a
+        href={PORTAL_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-ghost hidden md:inline-flex"
+        style="font-size: 0.875rem; padding: 0.5rem 1.25rem;"
+      >
+        Client Login
+      </a>
+
+      <!-- Mobile Hamburger -->
+      <button
+        id="nav-toggle"
+        class="md:hidden flex flex-col gap-1.5 p-2 rounded"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        <span class="hamburger-bar block w-6 h-0.5 transition-all duration-200" style="background: var(--color-text-primary);"></span>
+        <span class="hamburger-bar block w-6 h-0.5 transition-all duration-200" style="background: var(--color-text-primary);"></span>
+        <span class="hamburger-bar block w-6 h-0.5 transition-all duration-200" style="background: var(--color-text-primary);"></span>
+      </button>
+
+    </nav>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="nav-drawer" class="nav-drawer md:hidden border-t" style="border-color: var(--color-border); background: var(--color-bg);">
+    <ul class="container py-4 flex flex-col gap-4 list-none" style="padding-inline: 1.5rem;" role="list">
+      {[
+        { href: '#intro',      label: 'Home'      },
+        { href: '#difference', label: 'Why Us'    },
+        { href: '#offerings',  label: 'Offerings' },
+        { href: '#about',      label: 'About'     },
+        { href: '#process',    label: 'Process'   },
+        { href: '/blog',       label: 'Blog'      },
+      ].map(link => (
+        <li>
+          <a href={link.href} class="block text-base font-medium py-1" style="color: var(--color-text-primary); font-family: 'DM Sans', sans-serif;">
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a
+          href={PORTAL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary w-full mt-2"
+        >
+          Client Login
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const isOpen = drawer.classList.contains('open');
+      drawer.classList.toggle('open', !isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+
+      const bars = toggle.querySelectorAll('.hamburger-bar');
+      if (!isOpen) {
+        (bars[0] as HTMLElement).style.transform = 'translateY(8px) rotate(45deg)';
+        (bars[1] as HTMLElement).style.opacity = '0';
+        (bars[2] as HTMLElement).style.transform = 'translateY(-8px) rotate(-45deg)';
+      } else {
+        bars.forEach(b => {
+          (b as HTMLElement).style.transform = '';
+          (b as HTMLElement).style.opacity = '';
+        });
+      }
+    });
+
+    // Close drawer on anchor link click
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        const bars = toggle.querySelectorAll('.hamburger-bar');
+        bars.forEach(b => {
+          (b as HTMLElement).style.transform = '';
+          (b as HTMLElement).style.opacity = '';
+        });
+      });
+    });
+  }
+</script>

@@ -1,0 +1,176 @@
+---
+// pages/blog/[slug].astro — Individual blog post
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry('blog', slug as string);
+
+if (!entry) {
+  return Astro.redirect('/blog');
+}
+
+const { Content } = await entry.render();
+
+const formattedDate = entry.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <link rel="stylesheet" href="/src/styles/global.css" />
+  <Nav />
+
+  <main>
+    <!-- Post header -->
+    <div style="background:var(--color-glaucous-900); padding:5rem 0 3.5rem;">
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+        <a
+          href="/blog"
+          style="display:inline-flex; align-items:center; gap:0.375rem; font-family:'DM Sans',sans-serif; font-size:0.875rem; color:var(--color-glaucous-400); margin-bottom:2rem; transition:color 150ms ease;"
+          onmouseover="this.style.color='var(--color-tomato-jam-300)'"
+          onmouseout="this.style.color='var(--color-glaucous-400)'"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 7H1M5 3L1 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to the blog
+        </a>
+
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;">
+          <time datetime={entry.data.pubDate.toISOString()} style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:var(--color-glaucous-400);">
+            {formattedDate}
+          </time>
+          <span style="width:1px; height:12px; background:var(--color-glaucous-700); display:inline-block;"></span>
+          <span style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:var(--color-tomato-jam-400);">
+            {entry.data.author}
+          </span>
+        </div>
+
+        <h1 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:700; color:#fff; line-height:1.15; max-width:720px;">
+          {entry.data.title}
+        </h1>
+
+        {entry.data.tags && entry.data.tags.length > 0 && (
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.5rem;">
+            {entry.data.tags.map((tag: string) => (
+              <span style="font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; padding:0.25rem 0.75rem; border-radius:2px; background:var(--color-glaucous-800); color:var(--color-glaucous-300); letter-spacing:0.04em;">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Post body -->
+    <article style="background:var(--color-bg); padding:4rem 0 6rem;">
+      <div style="max-width:680px; margin-inline:auto; padding-inline:1.5rem;" class="prose-content">
+        <Content />
+      </div>
+    </article>
+
+    <!-- Back link footer -->
+    <div style="background:var(--color-bg-alt); border-top:1px solid var(--color-border); padding:2.5rem 0;">
+      <div class="container" style="max-width:680px; margin-inline:auto; padding-inline:1.5rem; text-align:center;">
+        <a href="/blog" class="btn btn-ghost">
+          ← All Posts
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* Prose styles for blog post body */
+  .prose-content {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .prose-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-content p {
+    margin-bottom: 1.5rem;
+    color: var(--color-text-muted);
+  }
+
+  .prose-content ul, .prose-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prose-content li {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .prose-content strong {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  .prose-content em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .prose-content blockquote {
+    border-left: 3px solid var(--color-tomato-jam-300);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  .prose-content hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2.5rem 0;
+  }
+
+  .prose-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .prose-content a:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

@@ -1,0 +1,104 @@
+---
+// Footer.astro
+const PORTAL_URL = 'https://subdomain.practicebetter.io';
+const year = new Date().getFullYear();
+---
+
+<footer style="background: var(--color-glaucous-900); color: var(--color-glaucous-100);">
+  <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+
+    <!-- Top footer -->
+    <div class="py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+
+      <!-- Brand column -->
+      <div class="md:col-span-1">
+        <a href="/" class="flex items-center gap-3 mb-4" aria-label="Piretti Health home">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="36" height="36" rx="4" fill="var(--color-tomato-jam-500)"/>
+            <text x="50%" y="72%" dominant-baseline="middle" text-anchor="middle"
+                  font-family="'Playfair Display', Georgia, serif"
+                  font-size="22" font-weight="700" fill="#fff">P</text>
+          </svg>
+          <span style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#fff;">
+            Piretti Health
+          </span>
+        </a>
+        <p style="font-size:0.9rem; color:var(--color-glaucous-300); line-height:1.65; max-width:220px;">
+          Your health, guided with intention. A personalized coaching practice for lasting wellness.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h3 style="font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-glaucous-400); margin-bottom:1rem;">
+          Navigation
+        </h3>
+        <ul class="flex flex-col gap-2.5 list-none" role="list">
+          {[
+            { href: '#intro',      label: 'Home'      },
+            { href: '#difference', label: 'Why Us'    },
+            { href: '#offerings',  label: 'Offerings' },
+            { href: '#about',      label: 'About'     },
+            { href: '#process',    label: 'My Process'},
+            { href: '/blog',       label: 'Blog'      },
+          ].map(link => (
+            <li>
+              <a href={link.href} style="font-size:0.9rem; color:var(--color-glaucous-300); transition:color 150ms ease;"
+                 onmouseover="this.style.color='#fff'"
+                 onmouseout="this.style.color='var(--color-glaucous-300)'">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Offerings -->
+      <div>
+        <h3 style="font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-glaucous-400); margin-bottom:1rem;">
+          Offerings
+        </h3>
+        <ul class="flex flex-col gap-2.5 list-none" role="list">
+          <li><a href="#offerings" style="font-size:0.9rem; color:var(--color-glaucous-300);"
+                 onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--color-glaucous-300)'">6-Month Coaching Program</a></li>
+          <li><a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" style="font-size:0.9rem; color:var(--color-glaucous-300);"
+                 onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--color-glaucous-300)'">Book a Session</a></li>
+          <li><a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" style="font-size:0.9rem; color:var(--color-glaucous-300);"
+                 onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--color-glaucous-300)'">Client Portal</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect -->
+      <div>
+        <h3 style="font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-glaucous-400); margin-bottom:1rem;">
+          Connect
+        </h3>
+        <ul class="flex flex-col gap-2.5 list-none" role="list">
+          <li>
+            <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer"
+               class="btn btn-ghost-light" style="font-size:0.875rem; padding: 0.5rem 1.25rem;">
+              Client Login
+            </a>
+          </li>
+          <li style="margin-top:0.5rem;">
+            <a href="/blog" style="font-size:0.9rem; color:var(--color-glaucous-300);"
+               onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--color-glaucous-300)'">From the Practice (Blog)</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <hr style="border:none; border-top:1px solid var(--color-glaucous-800);" />
+
+    <!-- Bottom footer -->
+    <div class="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p style="font-size:0.8125rem; color:var(--color-glaucous-500);">
+        &copy; {year} Piretti Health. All rights reserved.
+      </p>
+      <p style="font-size:0.8125rem; color:var(--color-glaucous-600);">
+        Built with care for your wellbeing.
+      </p>
+    </div>
+
+  </div>
+</footer>

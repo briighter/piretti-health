@@ -1,0 +1,358 @@
+---
+// pages/index.astro — Single-page site with all 5 sections
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import OfferingCard from '../components/OfferingCard.astro';
+
+const PORTAL_URL = 'https://subdomain.practicebetter.io';
+
+const differentiators = [
+  {
+    title: 'Personalized Care Plans',
+    description: 'No two bodies are the same. Every plan begins with your unique history, goals, and rhythms — never a one-size-fits-all protocol.',
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 3C8.477 3 4 7.477 4 13s4.477 10 10 10 10-4.477 10-10S19.523 3 14 3Z" stroke="var(--color-tomato-jam-300)" stroke-width="1.5"/><path d="M14 8v6l4 2" stroke="var(--color-tomato-jam-300)" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+  },
+  {
+    title: 'Root-Cause Focused',
+    description: 'We dig beneath the symptoms to understand what\'s truly driving your health patterns — addressing causes, not just managing effects.',
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14 4v14M8 12l6 6 6-6" stroke="var(--color-tomato-jam-300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 22h16" stroke="var(--color-tomato-jam-300)" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+  },
+  {
+    title: 'Ongoing Support',
+    description: 'Health doesn\'t pause between appointments. Your client portal keeps us connected, and I\'m here when questions arise between sessions.',
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 14c0-4.97 4.03-9 9-9s9 4.03 9 9c0 3.31-1.79 6.21-4.46 7.78" stroke="var(--color-tomato-jam-300)" stroke-width="1.5" stroke-linecap="round"/><path d="M14 14l-4 4" stroke="var(--color-tomato-jam-300)" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="18" r="1.5" fill="var(--color-tomato-jam-300)"/></svg>`,
+  },
+];
+
+const processSteps = [
+  {
+    title: 'Discovery Call',
+    description: 'We start with a free 20-minute call to see if we\'re a good fit and talk through what you\'re hoping to change or achieve.',
+  },
+  {
+    title: 'Intake Session',
+    description: 'A deep-dive 60-minute session to understand your full health picture — history, habits, stressors, and where you want to go.',
+  },
+  {
+    title: 'Your Custom Plan',
+    description: 'I build a personalized roadmap tailored to your specific goals, timeline, and lifestyle — practical and sustainable from day one.',
+  },
+  {
+    title: 'Ongoing Coaching',
+    description: 'Regular 30-minute sessions to track your progress, troubleshoot challenges, and keep refining your plan as you evolve.',
+  },
+  {
+    title: 'Sustainable Results',
+    description: 'The goal is independence. We build habits and knowledge so that your health improvements outlast our time together.',
+  },
+];
+---
+
+<BaseLayout title="Home">
+  <link rel="stylesheet" href="/src/styles/global.css" />
+
+  <Nav />
+
+  <main>
+
+    <!-- =====================================================
+         Section 1: #intro — Hero
+         ===================================================== -->
+    <section
+      id="intro"
+      aria-label="Introduction"
+      style="
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background: var(--color-bg);
+        background-image:
+          radial-gradient(ellipse 60% 60% at 92% 8%, var(--color-tomato-jam-50) 0%, transparent 70%),
+          url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E\");
+      "
+    >
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem; padding-top:6rem; padding-bottom:6rem;">
+        <div style="max-width:720px;">
+
+          <!-- Overline label -->
+          <span class="section-label animate-fade-up animate-delay-0">
+            Health Coaching
+          </span>
+
+          <!-- H1 Display headline -->
+          <h1
+            class="animate-fade-up animate-delay-120"
+            style="
+              font-family: 'Playfair Display', serif;
+              font-size: clamp(2.75rem, 6vw, 5rem);
+              font-weight: 700;
+              line-height: 1.1;
+              color: var(--color-text-primary);
+              margin-bottom: 1.5rem;
+              margin-top: 0.5rem;
+            "
+          >
+            Your health,<br />
+            <em style="font-style:italic; color:var(--color-accent);">guided with</em><br />
+            intention.
+          </h1>
+
+          <!-- Subheading -->
+          <p
+            class="animate-fade-up animate-delay-240"
+            style="
+              font-family: 'DM Sans', sans-serif;
+              font-size: clamp(1.0625rem, 2vw, 1.25rem);
+              color: var(--color-text-muted);
+              line-height: 1.7;
+              max-width: 520px;
+              margin-bottom: 2.5rem;
+            "
+          >
+            A personalized, root-cause approach to your wellbeing. We work together to understand your body, honor your rhythms, and build lasting change.
+          </p>
+
+          <!-- CTAs -->
+          <div class="animate-fade-up animate-delay-360" style="display:flex; flex-wrap:wrap; gap:1rem;">
+            <a
+              href={PORTAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              Book a Session
+            </a>
+            <a href="#difference" class="btn btn-ghost">
+              Learn More
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Decorative botanical curve -->
+      <div aria-hidden="true" style="position:absolute; right:-4rem; bottom:-4rem; width:480px; height:480px; border-radius:50%; border:1px solid var(--color-coffee-bean-200); opacity:0.4; pointer-events:none;"></div>
+      <div aria-hidden="true" style="position:absolute; right:2rem; bottom:2rem; width:280px; height:280px; border-radius:50%; border:1px solid var(--color-coffee-bean-300); opacity:0.3; pointer-events:none;"></div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- =====================================================
+         Section 2: #difference — Why Piretti Health (dark)
+         ===================================================== -->
+    <section
+      id="difference"
+      aria-label="Why Piretti Health"
+      style="
+        background: var(--color-glaucous-900);
+        padding: 7rem 0;
+        color: var(--color-glaucous-100);
+      "
+    >
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+
+        <!-- Section label + H2 -->
+        <div style="margin-bottom:4rem; max-width:520px;">
+          <span style="display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-tomato-jam-400); margin-bottom:0.75rem;">
+            Why Piretti Health
+          </span>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#fff; line-height:1.15;">
+            A different kind of health coaching practice.
+          </h2>
+        </div>
+
+        <!-- Asymmetric differentiator cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:2rem; align-items:start;">
+          {differentiators.map((d, i) => (
+            <div
+              style={`
+                padding: 2.25rem 2rem;
+                border: 1px solid var(--color-glaucous-800);
+                border-radius: 4px;
+                background: var(--color-glaucous-800);
+                ${i === 1 ? 'margin-top: 2rem;' : ''}
+                transition: border-color 200ms ease, background-color 200ms ease;
+              `}
+              onmouseover="this.style.borderColor='var(--color-tomato-jam-700)'; this.style.backgroundColor='var(--color-glaucous-700)'"
+              onmouseout="this.style.borderColor='var(--color-glaucous-800)'; this.style.backgroundColor='var(--color-glaucous-800)'"
+            >
+              <div style="margin-bottom:1.25rem;" set:html={d.icon}></div>
+              <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:#fff; margin-bottom:0.75rem;">
+                {d.title}
+              </h3>
+              <p style="font-size:0.9375rem; color:var(--color-glaucous-300); line-height:1.7;">
+                {d.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Section 3: #offerings — Packages
+         ===================================================== -->
+    <section
+      id="offerings"
+      aria-label="Offerings"
+      style="background: var(--color-bg-alt); padding: 7rem 0;"
+    >
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+        <div style="text-align:center; margin-bottom:3.5rem;">
+          <span class="section-label">Programs</span>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,2.75rem); font-weight:700; color:var(--color-text-primary); line-height:1.2; max-width:480px; margin-inline:auto;">
+            Invest in your most important asset.
+          </h2>
+        </div>
+        <OfferingCard />
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- =====================================================
+         Section 4: #about — About Me
+         ===================================================== -->
+    <section
+      id="about"
+      aria-label="About"
+      style="background: var(--color-bg); padding: 7rem 0;"
+    >
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+        <div style="display:grid; grid-template-columns:1fr; gap:4rem; align-items:center;" class="lg-two-col">
+
+          <!-- Image placeholder -->
+          <div
+            aria-label="A portrait photo placeholder — to be replaced"
+            role="img"
+            style="
+              aspect-ratio: 4/5;
+              background: var(--color-coffee-bean-200);
+              border-radius: 6px;
+              max-width: 420px;
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
+              overflow: hidden;
+            "
+          >
+            <!-- Warm placeholder pattern -->
+            <div style="position:absolute; inset:0; background: repeating-linear-gradient(45deg, var(--color-coffee-bean-100) 0px, var(--color-coffee-bean-100) 1px, transparent 1px, transparent 12px); opacity:0.5;"></div>
+            <span style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:var(--color-coffee-bean-700); position:relative; z-index:1; text-align:center; padding:1rem; opacity:0.7;">
+              Portrait photo<br/>coming soon
+            </span>
+          </div>
+
+          <!-- Bio text -->
+          <div>
+            <span class="section-label">About Me</span>
+            <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.875rem,3.5vw,2.75rem); font-weight:700; color:var(--color-text-primary); line-height:1.15; margin-bottom:1.75rem;">
+              Hello, I'm<br /><em style="font-style:italic; color:var(--color-accent);">your guide</em><br />to better health.
+            </h2>
+
+            <div style="display:flex; flex-direction:column; gap:1.25rem;">
+              <p style="font-size:1rem; color:var(--color-text-muted); line-height:1.75;">
+                I became a health coach because I experienced firsthand how the conventional medical system often treats symptoms without ever asking <em>why</em>. After years of searching for answers, I found them through a root-cause, whole-person approach — and it changed everything.
+              </p>
+              <p style="font-size:1rem; color:var(--color-text-muted); line-height:1.75;">
+                Today, I partner with clients who are tired of feeling dismissed, overwhelmed, or stuck. Together, we dig into your full health picture — nutrition, sleep, stress, environment, relationships — and build a plan that actually fits your life.
+              </p>
+              <p style="font-size:1rem; color:var(--color-text-muted); line-height:1.75;">
+                My work is guided by deep respect for your body's intelligence and an unwavering belief that sustainable health is within reach — for everyone.
+              </p>
+            </div>
+
+            <!-- Credentials row -->
+            <div style="margin-top:2.25rem; padding-top:1.75rem; border-top:1px solid var(--color-border);">
+              <h3 style="font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:0.875rem;">
+                Credentials &amp; Training
+              </h3>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:0.5rem;" role="list">
+                {[
+                  'Certified Health Coach, Institute for Integrative Nutrition',
+                  'Functional Medicine Health Coach (FMCHC)',
+                  'Certified in Positive Psychology, WholeBeing Institute',
+                ].map(cred => (
+                  <li style="display:flex; align-items:center; gap:0.625rem; font-size:0.9rem; color:var(--color-text-muted);">
+                    <span style="width:6px; height:6px; border-radius:50%; flex-shrink:0; background:var(--color-accent);"></span>
+                    {cred}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- =====================================================
+         Section 5: #process — My Process
+         ===================================================== -->
+    <section
+      id="process"
+      aria-label="My Process"
+      style="background: var(--color-pearl-beige-100, #f5ead6); padding: 7rem 0;"
+    >
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+
+        <!-- Header -->
+        <div style="text-align:center; margin-bottom:4rem;">
+          <span class="section-label">The Journey</span>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,2.75rem); font-weight:700; color:var(--color-text-primary); line-height:1.2; max-width:520px; margin-inline:auto;">
+            How We Work Together
+          </h2>
+        </div>
+
+        <!-- Staggered steps grid -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2.5rem 2rem; position:relative;">
+          <!-- Connector line (decorative, desktop only) -->
+          <div aria-hidden="true" style="display:none;" class="process-connector"></div>
+
+          {processSteps.map((step, i) => (
+            <ProcessStep
+              number={i + 1}
+              title={step.title}
+              description={step.description}
+            />
+          ))}
+        </div>
+
+        <!-- CTA below process -->
+        <div style="margin-top:4rem; text-align:center;">
+          <a
+            href={PORTAL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            style="font-size:1rem; padding:0.875rem 2.25rem;"
+          >
+            Start with a Discovery Call
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+
+</BaseLayout>
+
+<style>
+  @media (min-width: 768px) {
+    .lg-two-col {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+</style>
