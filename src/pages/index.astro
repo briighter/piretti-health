@@ -166,7 +166,7 @@ const processSteps = [
         </div>
 
         <!-- Asymmetric differentiator cards -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:2rem; align-items:start;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:2rem; align-items:stretch;">
           {differentiators.map((d, i) => (
             <div
               style={`
@@ -174,7 +174,8 @@ const processSteps = [
                 border: 1px solid var(--color-glaucous-800);
                 border-radius: 4px;
                 background: var(--color-glaucous-800);
-                ${i === 1 ? 'margin-top: 2rem;' : ''}
+                height: 100%;
+                box-sizing: border-box;
                 transition: border-color 200ms ease, background-color 200ms ease;
               `}
               onmouseover="this.style.borderColor='var(--color-tomato-jam-700)'; this.style.backgroundColor='var(--color-glaucous-700)'"
