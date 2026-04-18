@@ -1,5 +1,5 @@
 ---
-// pages/index.astro — Single-page site with all 5 sections
+// pages/index.astro — Single-page site with all sections
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -26,6 +26,41 @@ const differentiators = [
   },
 ];
 
+const services = [
+  {
+    label: 'Nutrition & Energy',
+    title: 'Fuel That Works For You',
+    description: 'Ditch the diets. We build an eating approach grounded in how your unique body actually functions — leaving you energized, not deprived.',
+    accentVar: '--color-tomato-jam-500',
+    bgVar: '--color-tomato-jam-50',
+    borderVar: '--color-tomato-jam-200',
+  },
+  {
+    label: 'Stress & Sleep',
+    title: 'Restore Your Nervous System',
+    description: 'Chronic stress rewires your body. Together we identify your stressors, calm your nervous system, and rebuild restorative sleep from the ground up.',
+    accentVar: '--color-glaucous-500',
+    bgVar: '--color-glaucous-50',
+    borderVar: '--color-glaucous-200',
+  },
+  {
+    label: 'Gut & Digestion',
+    title: 'Heal From the Inside Out',
+    description: 'Your gut is the foundation of everything — mood, immunity, energy. We address root-cause digestive imbalances so your whole body can thrive.',
+    accentVar: '--color-coffee-bean-500',
+    bgVar: '--color-coffee-bean-100',
+    borderVar: '--color-coffee-bean-300',
+  },
+  {
+    label: 'Hormone Balance',
+    title: 'Feel Like Yourself Again',
+    description: 'Fatigue, brain fog, mood swings — often hormonal. We use a whole-person lens to bring your hormones back into natural, lasting balance.',
+    accentVar: '--color-thistle-500',
+    bgVar: '--color-thistle-100',
+    borderVar: '--color-thistle-300',
+  },
+];
+
 const processSteps = [
   {
     title: 'Discovery Call',
@@ -46,6 +81,24 @@ const processSteps = [
   {
     title: 'Sustainable Results',
     description: 'The goal is independence. We build habits and knowledge so that your health improvements outlast our time together.',
+  },
+];
+
+const testimonials = [
+  {
+    quote: 'Working with Piretti Health completely changed my relationship with food and stress. For the first time, I actually understand why my body was responding the way it was.',
+    name: 'Sarah K.',
+    detail: 'Nutrition & Energy client',
+  },
+  {
+    quote: 'I came in feeling defeated by years of fatigue. Within three months I had more energy than I\'d had in years. The personalized approach made all the difference.',
+    name: 'Marcus T.',
+    detail: 'Gut Health client',
+  },
+  {
+    quote: 'Finally, a practitioner who listened — not just to my symptoms, but to my whole story. I feel seen, supported, and genuinely better.',
+    name: 'Priya M.',
+    detail: 'Hormone Balance client',
   },
 ];
 ---
@@ -70,7 +123,8 @@ const processSteps = [
         overflow: hidden;
         background: var(--color-bg);
         background-image:
-          radial-gradient(ellipse 60% 60% at 92% 8%, var(--color-tomato-jam-50) 0%, transparent 70%),
+          radial-gradient(ellipse 55% 55% at 95% 5%, var(--color-tomato-jam-50) 0%, transparent 70%),
+          radial-gradient(ellipse 40% 40% at 0% 100%, var(--color-pearl-beige-200) 0%, transparent 60%),
           url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E\");
       "
     >
@@ -116,29 +170,64 @@ const processSteps = [
           </p>
 
           <!-- CTAs -->
-          <div class="animate-fade-up animate-delay-360" style="display:flex; flex-wrap:wrap; gap:1rem;">
+          <div class="animate-fade-up animate-delay-360" style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:3rem;">
             <a
               href={PORTAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-primary"
             >
-              Book a Session
+              Book a Free Discovery Call
             </a>
             <a href="#difference" class="btn btn-ghost">
               Learn More
             </a>
           </div>
 
+          <!-- Trust badges -->
+          <div class="animate-fade-up animate-delay-360" style="display:flex; flex-wrap:wrap; gap:0.625rem;">
+            {['Personalized', 'Root-Cause Focused', 'Evidence-Based', 'Whole-Person Care'].map(badge => (
+              <span style="
+                display:inline-block;
+                font-family:'DM Sans',sans-serif;
+                font-size:0.8125rem;
+                font-weight:500;
+                color:var(--color-coffee-bean-700);
+                background:var(--color-coffee-bean-100);
+                border:1px solid var(--color-coffee-bean-200);
+                border-radius:999px;
+                padding:0.3125rem 0.875rem;
+              ">{badge}</span>
+            ))}
+          </div>
+
         </div>
       </div>
 
-      <!-- Decorative botanical curve -->
+      <!-- Decorative rings -->
       <div aria-hidden="true" style="position:absolute; right:-4rem; bottom:-4rem; width:480px; height:480px; border-radius:50%; border:1px solid var(--color-coffee-bean-200); opacity:0.4; pointer-events:none;"></div>
       <div aria-hidden="true" style="position:absolute; right:2rem; bottom:2rem; width:280px; height:280px; border-radius:50%; border:1px solid var(--color-coffee-bean-300); opacity:0.3; pointer-events:none;"></div>
     </section>
 
-    <hr class="section-divider" />
+    <!-- =====================================================
+         Stats bar — social proof strip
+         ===================================================== -->
+    <div style="background:var(--color-coffee-bean-100); border-top:1px solid var(--color-coffee-bean-200); border-bottom:1px solid var(--color-coffee-bean-200);">
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); padding:2.75rem 0; gap:2rem; text-align:center;">
+          {[
+            { num: '50+',  desc: 'clients guided toward lasting health' },
+            { num: '6mo',  desc: 'average coaching journey to real results' },
+            { num: '3×',   desc: 'focus areas addressed per personalized plan' },
+          ].map(stat => (
+            <div>
+              <p style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,2.75rem); font-weight:700; color:var(--color-coffee-bean-700); line-height:1;">{stat.num}</p>
+              <p style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:var(--color-coffee-bean-500); margin-top:0.4rem; line-height:1.5;">{stat.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
 
     <!-- =====================================================
          Section 2: #difference — Why Piretti Health (dark)
@@ -164,11 +253,11 @@ const processSteps = [
           </h2>
         </div>
 
-        <!-- Asymmetric differentiator cards -->
+        <!-- Differentiator cards -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:2rem; align-items:stretch;">
-          {differentiators.map((d, i) => (
+          {differentiators.map((d) => (
             <div
-              style={`
+              style="
                 padding: 2.25rem 2rem;
                 border: 1px solid var(--color-glaucous-800);
                 border-radius: 4px;
@@ -176,7 +265,7 @@ const processSteps = [
                 height: 100%;
                 box-sizing: border-box;
                 transition: border-color 200ms ease, background-color 200ms ease;
-              `}
+              "
               onmouseover="this.style.borderColor='var(--color-tomato-jam-700)'; this.style.backgroundColor='var(--color-glaucous-700)'"
               onmouseout="this.style.borderColor='var(--color-glaucous-800)'; this.style.backgroundColor='var(--color-glaucous-800)'"
             >
@@ -195,7 +284,63 @@ const processSteps = [
     </section>
 
     <!-- =====================================================
-         Section 3: #offerings — Packages
+         Section 3: #services — Areas of Focus
+         ===================================================== -->
+    <section
+      id="services"
+      aria-label="Areas of Focus"
+      style="background: var(--color-bg); padding: 7rem 0;"
+    >
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
+        <div style="text-align:center; margin-bottom:4rem;">
+          <span class="section-label">How I Can Help</span>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,2.75rem); font-weight:700; color:var(--color-text-primary); line-height:1.2; max-width:520px; margin-inline:auto;">
+            Your health, from every angle.
+          </h2>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.75rem;">
+          {services.map(svc => (
+            <div style={`
+              background: var(${svc.bgVar});
+              border: 1px solid var(${svc.borderVar});
+              border-radius: 6px;
+              padding: 2rem 1.75rem;
+              transition: box-shadow 200ms ease, transform 200ms ease;
+            `}
+            onmouseover="this.style.boxShadow='0 8px 28px rgba(0,0,0,0.08)'; this.style.transform='translateY(-3px)'"
+            onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'"
+            >
+              <span style={`
+                display:inline-block;
+                font-family:'DM Sans',sans-serif;
+                font-size:0.6875rem;
+                font-weight:600;
+                letter-spacing:0.13em;
+                text-transform:uppercase;
+                color: var(${svc.accentVar});
+                background: rgba(255,255,255,0.7);
+                border: 1px solid var(${svc.borderVar});
+                border-radius: 999px;
+                padding: 0.25rem 0.75rem;
+                margin-bottom: 1.25rem;
+              `}>{svc.label}</span>
+              <h3 style={`font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:700; color:var(--color-text-primary); margin-bottom:0.75rem; line-height:1.25;`}>
+                {svc.title}
+              </h3>
+              <p style="font-size:0.9375rem; color:var(--color-text-muted); line-height:1.7;">
+                {svc.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- =====================================================
+         Section 4: #offerings — Signature Program
          ===================================================== -->
     <section
       id="offerings"
@@ -213,10 +358,8 @@ const processSteps = [
       </div>
     </section>
 
-    <hr class="section-divider" />
-
     <!-- =====================================================
-         Section 4: #about — About Me
+         Section 5: #about — About Me
          ===================================================== -->
     <section
       id="about"
@@ -243,7 +386,6 @@ const processSteps = [
               overflow: hidden;
             "
           >
-            <!-- Warm placeholder pattern -->
             <div style="position:absolute; inset:0; background: repeating-linear-gradient(45deg, var(--color-coffee-bean-100) 0px, var(--color-coffee-bean-100) 1px, transparent 1px, transparent 12px); opacity:0.5;"></div>
             <span style="font-family:'DM Sans',sans-serif; font-size:0.875rem; color:var(--color-coffee-bean-700); position:relative; z-index:1; text-align:center; padding:1rem; opacity:0.7;">
               Portrait photo<br/>coming soon
@@ -287,37 +429,29 @@ const processSteps = [
                 ))}
               </ul>
             </div>
-
           </div>
         </div>
       </div>
     </section>
 
-    <hr class="section-divider" />
-
     <!-- =====================================================
-         Section 5: #process — My Process
+         Section 6: #process — My Process (Coffee Bean bg)
          ===================================================== -->
     <section
       id="process"
       aria-label="My Process"
-      style="background: var(--color-pearl-beige-100, #f5ead6); padding: 7rem 0;"
+      style="background: var(--color-coffee-bean-100); border-top:1px solid var(--color-coffee-bean-200); padding: 7rem 0;"
     >
       <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem;">
 
-        <!-- Header -->
         <div style="text-align:center; margin-bottom:4rem;">
-          <span class="section-label">The Journey</span>
+          <span class="section-label" style="color:var(--color-coffee-bean-700);">The Journey</span>
           <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,2.75rem); font-weight:700; color:var(--color-text-primary); line-height:1.2; max-width:520px; margin-inline:auto;">
-            How We Work Together
+            Simple, personal, effective.
           </h2>
         </div>
 
-        <!-- Staggered steps grid -->
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2.5rem 2rem; position:relative;">
-          <!-- Connector line (decorative, desktop only) -->
-          <div aria-hidden="true" style="display:none;" class="process-connector"></div>
-
           {processSteps.map((step, i) => (
             <ProcessStep
               number={i + 1}
@@ -327,7 +461,6 @@ const processSteps = [
           ))}
         </div>
 
-        <!-- CTA below process -->
         <div style="margin-top:4rem; text-align:center;">
           <a
             href={PORTAL_URL}
@@ -340,6 +473,108 @@ const processSteps = [
           </a>
         </div>
 
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Section 7: #testimonials — Client Stories (Thistle)
+         ===================================================== -->
+    <section
+      id="testimonials"
+      aria-label="Client Testimonials"
+      style="
+        background: var(--color-thistle-500);
+        padding: 7rem 0;
+        position: relative;
+        overflow: hidden;
+      "
+    >
+      <!-- Decorative large quote mark -->
+      <div aria-hidden="true" style="position:absolute; top:-1rem; left:50%; transform:translateX(-50%); font-family:'Playfair Display',serif; font-size:20rem; line-height:1; color:rgba(255,255,255,0.06); pointer-events:none; user-select:none;">"</div>
+
+      <div class="container" style="max-width:1100px; margin-inline:auto; padding-inline:1.5rem; position:relative; z-index:1;">
+
+        <div style="text-align:center; margin-bottom:4rem;">
+          <span style="display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-thistle-300); margin-bottom:0.75rem;">
+            Client Stories
+          </span>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,2.75rem); font-weight:700; color:#fff; line-height:1.2; max-width:480px; margin-inline:auto;">
+            Real people, real results.
+          </h2>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem;">
+          {testimonials.map(t => (
+            <div style="
+              background: rgba(255,255,255,0.12);
+              border: 1px solid rgba(255,255,255,0.2);
+              border-radius: 6px;
+              padding: 2.25rem 2rem;
+              backdrop-filter: blur(4px);
+            ">
+              <!-- Stars -->
+              <div style="display:flex; gap:0.25rem; margin-bottom:1.25rem;" aria-label="5 stars">
+                {Array(5).fill(null).map(() => (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-pearl-beige-200)" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M8 1l1.854 3.756L14 5.437l-3 2.924.708 4.13L8 10.437l-3.708 2.054L5 8.361 2 5.437l4.146-.681L8 1z"/>
+                  </svg>
+                ))}
+              </div>
+              <blockquote style="font-family:'Playfair Display',serif; font-size:1.0625rem; font-style:italic; color:#fff; line-height:1.7; margin-bottom:1.5rem;">
+                "{t.quote}"
+              </blockquote>
+              <div>
+                <p style="font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:500; color:#fff;">{t.name}</p>
+                <p style="font-family:'DM Sans',sans-serif; font-size:0.8125rem; color:var(--color-thistle-300);">{t.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Section 8: CTA — Take the First Step
+         ===================================================== -->
+    <section
+      id="cta"
+      aria-label="Call to Action"
+      style="
+        background: var(--color-glaucous-900);
+        padding: 8rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      "
+    >
+      <!-- Warm glow -->
+      <div aria-hidden="true" style="position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 50% 110%, var(--color-tomato-jam-900) 0%, transparent 65%); pointer-events:none;"></div>
+
+      <div class="container" style="max-width:700px; margin-inline:auto; padding-inline:1.5rem; position:relative; z-index:1;">
+        <span style="display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-tomato-jam-400); margin-bottom:1.25rem;">
+          Your New Beginning
+        </span>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2.25rem,5vw,3.5rem); font-weight:700; color:#fff; line-height:1.1; margin-bottom:1.5rem;">
+          Take the first step toward the life you deserve.
+        </h2>
+        <p style="font-family:'DM Sans',sans-serif; font-size:1.0625rem; color:var(--color-glaucous-300); line-height:1.7; margin-bottom:2.75rem; max-width:520px; margin-inline:auto;">
+          Over 50 clients have reclaimed their energy, rebuilt their health, and found genuine wellbeing. You can, too — and it starts with one conversation.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:1rem;">
+          <a
+            href={PORTAL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            style="font-size:1rem; padding:0.9375rem 2.5rem;"
+          >
+            Book a Free Discovery Call
+          </a>
+          <a href="#about" class="btn btn-ghost-light" style="font-size:1rem; padding:0.9375rem 2.5rem;">
+            Meet Your Coach
+          </a>
+        </div>
       </div>
     </section>
 

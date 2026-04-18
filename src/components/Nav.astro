@@ -24,12 +24,14 @@ const PORTAL_URL = 'https://subdomain.practicebetter.io';
       <!-- Desktop Nav Links -->
       <ul class="hidden md:flex items-center gap-7 list-none" role="list">
         {[
-          { href: '#intro',      label: 'Home'      },
-          { href: '#difference', label: 'Why Us'    },
-          { href: '#offerings',  label: 'Offerings' },
-          { href: '#about',      label: 'About'     },
-          { href: '#process',    label: 'Process'   },
-          { href: '/blog',       label: 'Blog'      },
+          { href: '#intro',        label: 'Home'         },
+          { href: '#difference',   label: 'Why Us'       },
+          { href: '#services',     label: 'Services'     },
+          { href: '#offerings',    label: 'Programs'     },
+          { href: '#about',        label: 'About'        },
+          { href: '#process',      label: 'Process'      },
+          { href: '#testimonials', label: 'Stories'      },
+          { href: '/blog',         label: 'Blog'         },
         ].map(link => (
           <li>
             <a
@@ -75,12 +77,14 @@ const PORTAL_URL = 'https://subdomain.practicebetter.io';
   <div id="nav-drawer" class="nav-drawer md:hidden border-t" style="border-color: var(--color-border); background: var(--color-bg);">
     <ul class="container py-4 flex flex-col gap-4 list-none" style="padding-inline: 1.5rem;" role="list">
       {[
-        { href: '#intro',      label: 'Home'      },
-        { href: '#difference', label: 'Why Us'    },
-        { href: '#offerings',  label: 'Offerings' },
-        { href: '#about',      label: 'About'     },
-        { href: '#process',    label: 'Process'   },
-        { href: '/blog',       label: 'Blog'      },
+        { href: '#intro',        label: 'Home'         },
+        { href: '#difference',   label: 'Why Us'       },
+        { href: '#services',     label: 'Services'     },
+        { href: '#offerings',    label: 'Programs'     },
+        { href: '#about',        label: 'About'        },
+        { href: '#process',      label: 'Process'      },
+        { href: '#testimonials', label: 'Stories'      },
+        { href: '/blog',         label: 'Blog'         },
       ].map(link => (
         <li>
           <a href={link.href} class="block text-base font-medium py-1" style="color: var(--color-text-primary); font-family: 'DM Sans', sans-serif;">
